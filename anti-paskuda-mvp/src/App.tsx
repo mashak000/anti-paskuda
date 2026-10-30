@@ -5,6 +5,7 @@ function App() {
   async function getExpenses() {
     const { data, error } = await supabase.from('Tests').select()
     console.log(data)
+    console.log('test')
     if (error) {
       console.error(error)
       return
