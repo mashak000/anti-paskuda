@@ -1,5 +1,8 @@
 {
-    "navigation": {
-        "profile": "Профиль"
-    }
+  "nav": {
+    "home": "главная",
+    "expenses": "траты",
+    "debt": "долги",
+    "profile": "профиль"
+  }
 }
