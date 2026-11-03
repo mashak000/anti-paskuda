@@ -99,6 +99,7 @@ export default function Login() {
             {t('auth.explain')}
           </p>
 
+
           {errorMessage && (
             <p role="alert" className="mt-4">
               {errorMessage}
