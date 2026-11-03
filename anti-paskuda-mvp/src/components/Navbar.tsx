@@ -37,7 +37,7 @@ export default function NavBar() {
                   anonymous-pro-bold
                     border-t-nav-edge-light border-l-nav-edge-light
                     border-r-nav-edge-dark border-b-nav-edge-dark
-                     bg-nav-bg hover:bg-nav-hover
+                     bg-retro-surface hover:bg-nav-hover
                   `
               }`
             }

@@ -1,3 +1,7 @@
 export default function Dashboard() {
-    return <h1>Home Dashboard</h1>
+  return (
+    <main className="bg-retro-surface h-screen">
+      <h1>Home Dashboard</h1>
+    </main>
+  );
 }

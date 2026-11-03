@@ -2,25 +2,165 @@
 
 @theme inline {
   --color-nav-text: var(--nav-text);
-  --color-nav-bg: var(--nav-bg);
+  --color-nav-bg: var(--retro-surface);
   --color-nav-hover: var(--nav-hover);
   --color-nav-active: var(--nav-active);
   --color-nav-edge-light: var(--nav-edge-light);
   --color-nav-edge-dark: var(--nav-edge-dark);
   --color-nav-focus: var(--nav-focus);
+
+  --color-retro-surface: var(--retro-surface);
+  --color-retro-btn-bg: var(--retro-btn-bg);
+  --color-retro-disabled-text: var(--retro-disabled-text);
 }
 
 :root {
   --nav-text: #202020;
-  --nav-bg: #c0c0c0;
   --nav-hover: #cacaca;
   --nav-active: #b0b0b0;
   --nav-edge-light: #ffffff;
   --nav-edge-dark: #555555;
   --nav-focus: #000000;
+
+  --retro-surface: #c0c0c0;
+  --retro-text: #000000;
+
+  --retro-btn-bg: #d4d0c8;
+  --retro-focus: #171717;
+  --retro-disabled-text: #606060;
+  --retro-backdrop: rgb(0 0 0 / 40%);
+
+  --retro-edge-light: #ffffff;
+  --retro-edge-dark: #555555;
+
+  --retro-title-bg: #000080;
+  --retro-title-text: #ffffff;
+
+  --retro-label-bg: #ff8a00;
+  --retro-label-text: #171717;
+  --retro-label-border: #171717;
 }
 
 [data-theme='dark'] {
+}
+
+@layer components {
+  .retro-button {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 2px solid;
+    border-top-color: var(--retro-edge-light);
+    border-left-color: var(--retro-edge-light);
+    border-right-color: var(--retro-edge-dark);
+    border-bottom-color: var(--retro-edge-dark);
+    border-radius: 0;
+    background: var(--retro-btn-bg);
+    color: var(--retro-text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .retro-button:active:not(:disabled) {
+    border-top-color: var(--retro-edge-dark);
+    border-left-color: var(--retro-edge-dark);
+    border-right-color: var(--retro-edge-light);
+    border-bottom-color: var(--retro-edge-light);
+  }
+
+  .retro-button:disabled {
+    color: var(--retro-disabled-text);
+    cursor: not-allowed;
+  }
+
+  .retro-button__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: inherit;
+  }
+
+  .retro-button:active:not(:disabled):focus-visible .retro-button__content {
+    transform: translate(2px, 2px);
+  }
+
+  .retro-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(32rem, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    padding: 4px;
+
+    background: var(--retro-surface);
+    color: var(--retro-text);
+
+    border: 2px solid;
+    border-top-color: var(--retro-edge-light);
+    border-left-color: var(--retro-edge-light);
+    border-right-color: var(--retro-edge-dark);
+    border-bottom-color: var(--retro-edge-dark);
+    border-radius: 0;
+  }
+
+  .retro-modal::backdrop {
+    background: var(--retro-backdrop);
+  }
+
+  .retro-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 2px 2px 2px 12px;
+    background: var(--retro-title-bg);
+    color: var(--retro-title-text);
+    font-family: 'Anonymous Pro', monospace;
+  }
+
+  .retro-photo-frame {
+    border: 2px solid;
+    border-top-color: var(--retro-edge-dark);
+    border-left-color: var(--retro-edge-dark);
+    border-right-color: var(--retro-edge-light);
+    border-bottom-color: var(--retro-edge-light);
+    background: var(--retro-edge-dark);
+  }
+
+  .gift-label {
+    display: inline-block;
+    padding: 6px 10px;
+    border: 1px solid var(--retro-label-border);
+    background: var(--retro-label-bg);
+    color: var(--retro-label-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: uppercase;
+    transform: rotate(20deg);
+    animation: gift-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes gift-pulse {
+    0%,
+    100% {
+      transform: rotate(20deg) scale(1);
+    }
+
+    50% {
+      transform: rotate(20deg) scale(0.92);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gift-label {
+      animation: none;
+    }
+  }
 }
 
 // Fonts
@@ -46,4 +186,27 @@
   font-family: 'Anonymous Pro', monospace;
   font-weight: 700;
   font-style: italic;
+}
+
+@layer base {
+  html,
+  body {
+    font-family: 'Anonymous Pro', monospace;
+    background-color: var(--retro-surface);
+    line-height: 1;
+  }
+
+  h1,
+  .press-start-2p-regular {
+    font-family: 'Press Start 2P', system-ui;
+    font-weight: 400;
+    font-style: normal;
+    transform: scaleX(0.85);
+  }
+}
+
+@layer utilities {
+  * {
+    line-height: 1;
+  }
 }
