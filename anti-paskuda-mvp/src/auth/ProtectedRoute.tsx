@@ -10,7 +10,6 @@ export default function ProtectedRoute() {
   const { session, isLoading } = useAuth();
   const { pathname } = useLocation();
 
-  
   const {
     currentData: profile,
     isLoading: isLoadingProfile,
