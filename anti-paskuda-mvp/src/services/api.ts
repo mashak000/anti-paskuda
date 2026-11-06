@@ -1,11 +1,16 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 import { supabase } from '../lib/supabaseCLient';
-import type { ApiError, Profile, CreateProfileInput } from './apiTypes';
+import type {
+  ApiError,
+  Profile,
+  CreateProfileInput,
+  CreatePlanInput,
+} from './apiTypes';
 
 export const paskudaApi = createApi({
   reducerPath: 'paskudaApi',
   baseQuery: fakeBaseQuery<ApiError>(),
-  tagTypes: ['Profile'],
+  tagTypes: ['Profile', 'Plan'],
   endpoints: (builder) => ({
     getProfileById: builder.query<Profile | null, string>({
       async queryFn(id, { signal }) {
@@ -67,6 +72,9 @@ export const paskudaApi = createApi({
           };
         }
       },
+      providesTags: (_result, _error, ownerId) => [
+        { type: 'Plan', id: ownerId },
+      ],
     }),
     createProfile: builder.mutation<boolean, CreateProfileInput>({
       async queryFn(profile, { signal }) {
@@ -99,6 +107,37 @@ export const paskudaApi = createApi({
       invalidatesTags: (_result, error, profile) =>
         error ? [] : [{ type: 'Profile', id: profile.id }],
     }),
+    createPlan: builder.mutation<boolean, CreatePlanInput>({
+      async queryFn(plan, { signal }) {
+        try {
+          const { error } = await supabase
+            .from('monthly_plans')
+            .insert(plan)
+            .abortSignal(signal);
+
+          if (error) {
+            return {
+              error: {
+                message: error.message,
+                code: error.code,
+              },
+            };
+          }
+          return { data: true };
+        } catch (error) {
+          return {
+            error: {
+              message:
+                error instanceof Error
+                  ? error.message
+                  : 'Could not create plan',
+            },
+          };
+        }
+      },
+      invalidatesTags: (_result, error, plan) =>
+        error ? [] : [{ type: 'Plan', id: plan.owner_id }],
+    }),
   }),
 });
 
@@ -106,4 +145,5 @@ export const {
   useGetProfileByIdQuery,
   useHasPlanByProfileQuery,
   useCreateProfileMutation,
+  useCreatePlanMutation,
 } = paskudaApi;

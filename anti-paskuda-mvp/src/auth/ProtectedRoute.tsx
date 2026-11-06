@@ -35,7 +35,7 @@ export default function ProtectedRoute() {
     return <Navigate to="/setup/profile" replace />;
   } else if (profile && !hasPlan && pathname !== '/setup/plan') {
     return <Navigate to="/setup/plan" replace />;
-  } else if (profile && hasPlan) {
+  } else if (profile && hasPlan && pathname.startsWith('/setup')) {
     return <Navigate to="/" replace />;
   }
 

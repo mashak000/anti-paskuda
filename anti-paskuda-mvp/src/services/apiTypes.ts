@@ -6,7 +6,10 @@ export type CreateProfileInput =
   Database['public']['Tables']['profiles']['Insert'] & {
     id: string;
   };
-
+export type CreatePlanInput =
+  Database['public']['Tables']['monthly_plans']['Insert'] & {
+    owner_id: string;
+  };
 
 export type ApiError = {
   message: string;

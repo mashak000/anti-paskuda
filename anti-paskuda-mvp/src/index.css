@@ -12,6 +12,9 @@
   --color-retro-surface: var(--retro-surface);
   --color-retro-btn-bg: var(--retro-btn-bg);
   --color-retro-disabled-text: var(--retro-disabled-text);
+
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
 }
 
 :root {
@@ -37,6 +40,7 @@
   --retro-title-text: #ffffff;
 
   --accent: #ff8a00;
+  --accent-bg: #f6d1a7;
   --retro-label-text: #171717;
   --retro-label-border: #171717;
 

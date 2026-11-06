@@ -51,10 +51,9 @@ export default function SetupProfile() {
             : 'Could not create profile',
       });
       return;
-    } else {
-      reset();
-      navigate('/setup/plan');
     }
+    reset();
+    navigate('/setup/plan');
   };
 
   return (
